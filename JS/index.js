@@ -13,10 +13,10 @@ async function getWorks() {
             works.forEach((work) => {
                 // Ajoute une figure HTML à galleryContainer pour chaque travail
                 galleryContainer.innerHTML += `
-                <figure data-category="${work.category.id}">
-                    <img src="${work.imageUrl}" alt="${work.title}">
-                    <figcaption>${work.title}</figcaption>
-                </figure>`;
+                <figure data-category="${work.category.id}" data-set-id="${work.id}">
+                <img src="${work.imageUrl}" alt="${work.title}">
+                <figcaption>${work.title}</figcaption>
+            </figure>`;
             });
         })
         .catch((error) => {
@@ -108,3 +108,29 @@ function addFilterBtnsEventListeners() {
     });
 }
 
+// Fonction pour afficher la bannière si le token est valide
+function showBannerIfValidToken() {
+    const banner = document.getElementById("editBanner");
+    const iconModify = document.querySelector(".icon-modify.admin-only");
+
+    // Récupère le token utilisateur depuis le stockage local
+    const userToken = localStorage.getItem('token');
+
+    // Vérifie si le token est présent et valide (vous devrez ajuster cette vérification en fonction de la structure de votre token)
+    const isTokenValid = !!userToken;
+
+    if (isTokenValid) {
+        // Affiche la bannière et d'autres éléments associés à l'administrateur
+        banner.style.display = "block";
+        iconModify.style.display = "block";
+    } else {
+        // Cache la bannière et d'autres éléments associés à l'administrateur
+        banner.style.display = "none";
+        iconModify.style.display = "none";
+    }
+}
+
+// Appelle la fonction lors du chargement du DOM
+document.addEventListener("DOMContentLoaded", showBannerIfValidToken);
+
+  

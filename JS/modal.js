@@ -31,7 +31,12 @@ const closeModal = function () {
     if (modal) modal.style.display = "none"; // Masque la première modal
     if (modalAdd) modalAdd.style.display = "none"; // Masque la deuxième modal
     if (overlay) overlay.style.display = "none"; // Masque l'arrière-plan sombre
+    // Effacer le contenu du champ titre lors de la fermeture de la modal d'ajout d'image
+    document.getElementById("photo-title").value = "";
 }
+
+// const overlay = document.querySelector(".modal-overlay");
+// overlay.addEventListener("click",closeModal);
 
 // ICONE QUI FERME LA MODAl
     const closeIcon = document.querySelector(".js-modal-close");
@@ -44,6 +49,23 @@ const closeModal = function () {
 // SÉLECTIONNE LE LIEN QUI DÉCLENCHE L'OUVERTURE DE LA MODAL
     const modalTrigger = document.querySelector(".js-modal-trigger");
     modalTrigger.addEventListener("click", openModal);
+    
+// Ajout de l'événement de clic à l'arrière-plan
+document.querySelector(".modal-overlay",).addEventListener("click", (event) => {
+    // Vérifier si l'élément cliqué est l'arrière-plan ET ne fait pas partie de la modal
+    if (!event.target.closest('.modal-content')) {
+        // Fermer les modals
+        closeModal();
+    }
+});
+// Ajout de l'événement de clic à l'arrière-plan pour la deuxième modal
+document.querySelector("#modalAdd").addEventListener("click", (event) => {
+    // Vérifier si l'élément cliqué est l'arrière-plan ET ne fait pas partie de la deuxième modal
+    if (!event.target.closest('.modal-content')) {
+        // Fermer la deuxième modal
+        closeModal();
+    }
+});
 
 // RÉCUPERATION DES TRAVAUX POUR LA MODAL
     const originalGallery = document.querySelector(".gallery");
@@ -144,12 +166,19 @@ async function deleteProject(itemId) {
 }
 
 function removeProjectFromDOM(projectId) {
-        console.log("Removing project from DOM:", projectId);
-        const projectElement = document.querySelector(`[data-project-id="${projectId}"]`);
-        if (projectElement) {
-            projectElement.remove();
-        }
+    console.log("Removing project from DOM:", projectId);
+    const projectElementModal = document.querySelector(`[data-project-id="${projectId}"]`);
+    const projectElement = document.querySelector(`[data-set-id="${projectId}"]`);
+
+    if (projectElementModal) {
+        projectElementModal.remove();
     }
+
+    if (projectElement) {
+        projectElement.remove();
+    }
+}
+
 // Fonction event listener au click
 function deleteProjects() {
         const deleteIcons = document.querySelectorAll(".delete-icon");
@@ -186,45 +215,6 @@ function generateCategoryOptions() {
     });
 }
 generateCategoryOptions();
-
-
-// Fonction pour prévisualiser une image sélectionnée dans le formulaire
-function previewImage() {
-    const fileInput = document.getElementById("add-photo-input");
-    const previewContainer = document.getElementById("image-preview-container");
-
-    // Fonction pour mettre à jour la prévisualisation
-    function updatePreview(file) {
-        const reader = new FileReader();
-
-        reader.onload = function () {
-            // Mettre à jour le contenu de la div de prévisualisation avec l'image
-            previewContainer.innerHTML = `<img src="${reader.result}" alt="Preview">`;
-        };
-
-        reader.readAsDataURL(file);// Lire le contenu du fichier en tant que Data URL
-    }
-
-    // Gestionnaire d'événements pour le changement du fichier
-    fileInput.addEventListener("change", function () {
-        const file = fileInput.files[0];
-
-        // Vérifier si un fichier a été sélectionné
-        if (file) {
-            updatePreview(file);
-        } else {
-            // Si aucun fichier n'est sélectionné, effacer la prévisualisation
-            previewContainer.innerHTML = "";
-        }
-    });
-
-    // Vérifier si un fichier a déjà été sélectionné lors du chargement de la page
-    if (fileInput.files.length > 0) {
-        const file = fileInput.files[0];
-        updatePreview(file);
-    }
-}
-previewImage();
 
 
 // AJOUT IMAGES - TITRE - CATEGORIE 
@@ -277,5 +267,35 @@ function addNewImage() {
 }
 addNewImage();
 
+// PRÉVISUALISATION
+// Sélectionnez le champ de fichier et ajoutez un écouteur d'événements au changement
+const fileInput = document.getElementById("add-photo-input");
+fileInput.addEventListener("change", function (event) {
+    const file = event.target.files[0];
+    previewPicture(file);
 
+    // Cacher seulement le texte du label après la sélection de l'image
+    const fileLabel = document.getElementById("file");
+    const buttonText = fileLabel.querySelector(".custom-button");
+    buttonText.style.display = "none";
+});
 
+// La fonction previewPicture qui affiche la prévisualisation de l'image
+function previewPicture(file) {
+    // Vérifiez si un fichier a été sélectionné
+    if (file) {
+        // Créez un nouvel élément d'image
+        const previewImg = document.createElement("img");
+        previewImg.alt = "Image Preview";
+
+        // Utilisez FileReader pour lire le contenu du fichier en tant que Data URL
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            previewImg.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+
+        // Insérez l'image prévisualisée après le label
+        fileInput.insertAdjacentElement("afterend", previewImg);
+    }
+}
