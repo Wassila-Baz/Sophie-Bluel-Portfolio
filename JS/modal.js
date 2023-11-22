@@ -35,9 +35,6 @@ const closeModal = function () {
     document.getElementById("photo-title").value = "";
 }
 
-// const overlay = document.querySelector(".modal-overlay");
-// overlay.addEventListener("click",closeModal);
-
 // ICONE QUI FERME LA MODAl
     const closeIcon = document.querySelector(".js-modal-close");
     closeIcon.addEventListener("click", closeModal);
@@ -206,7 +203,7 @@ const categories = [
 function generateCategoryOptions() {
     const categorySelect = document.getElementById("category-select");
 
-    // Parcoure la liste des catégories et créer une option pour chaque catégorie
+    // Parcours la liste des catégories et créer une option pour chaque catégorie
     categories.forEach(category => {
         const option = document.createElement("option");
         option.value = category.id;
@@ -218,7 +215,7 @@ generateCategoryOptions();
 
 
 // AJOUT IMAGES - TITRE - CATEGORIE 
-function addNewImage() {
+async function addNewImage() {
     const workForm = document.querySelector("#newWork");
 
     // evénement de clic au bouton de validation
@@ -236,7 +233,7 @@ function addNewImage() {
             return; // Sortir de la fonction si la validation échoue
         }
 
-        // Récupérer le premier fichier du champ de type fichier
+        // Récupére le premier fichier du champ de type fichier
         const imageFile = imageInput.files[0];
 
         // Construire un objet FormData pour envoyer le fichier au serveur
@@ -246,7 +243,7 @@ function addNewImage() {
         formData.append('image', imageFile);
 
         try {
-            // Effectuer la requête POST vers le serveur
+            // Effectue la requête POST vers le serveur
             const response = await fetch("http://localhost:5678/api/works", {
                 method: "POST",
                 headers: {
@@ -255,9 +252,12 @@ function addNewImage() {
                 body: formData,
             });
 
-            // Vérifier si la requête a réussi
+            // Vérifie si la requête a réussi
             if (response.ok) {
                 console.log("Le travail a été ajouté avec succès.");
+
+                generateProjectsInModal(workApi); // permet d'afficher les projet sans rafraichir la page (modal)
+                getWorks();// permet d'afficher les projet sans rafraichir la page (page d'accueil)
             }
 
         } catch (error) {
@@ -268,13 +268,13 @@ function addNewImage() {
 addNewImage();
 
 // PRÉVISUALISATION
-// Sélectionnez le champ de fichier et ajoutez un écouteur d'événements au changement
+// Sélectionne le champ de fichier et ajoute un écouteur d'événements au changement
 const fileInput = document.getElementById("add-photo-input");
 fileInput.addEventListener("change", function (event) {
     const file = event.target.files[0];
     previewPicture(file);
 
-    // Cacher seulement le texte du label après la sélection de l'image
+    // Cache seulement le texte du label après la sélection de l'image
     const fileLabel = document.getElementById("file");
     const buttonText = fileLabel.querySelector(".custom-button");
     buttonText.style.display = "none";
@@ -282,20 +282,20 @@ fileInput.addEventListener("change", function (event) {
 
 // La fonction previewPicture qui affiche la prévisualisation de l'image
 function previewPicture(file) {
-    // Vérifiez si un fichier a été sélectionné
+    // Vérifie si un fichier a été sélectionné
     if (file) {
         // Créez un nouvel élément d'image
         const previewImg = document.createElement("img");
         previewImg.alt = "Image Preview";
 
-        // Utilisez FileReader pour lire le contenu du fichier en tant que Data URL
+        // Utilise FileReader pour lire le contenu du fichier en tant que Data URL
         const reader = new FileReader();
         reader.onload = function (event) {
             previewImg.src = event.target.result;
         };
         reader.readAsDataURL(file);
 
-        // Insérez l'image prévisualisée après le label
+        // Insére l'image prévisualisée après le label
         fileInput.insertAdjacentElement("afterend", previewImg);
     }
 }

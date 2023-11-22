@@ -336,7 +336,8 @@ footer nav ul {
   display: none;
   }
   
-  #modal-content {
+  #modal-content,
+  #modal-content2{
 	background-color: #fff;
 	margin: 15% auto;
 	padding: 20px;
