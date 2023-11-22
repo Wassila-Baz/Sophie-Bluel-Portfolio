@@ -8,15 +8,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-    <meta name="description">
+    <meta name="description" content="portfolio">
     <link rel="stylesheet" href="./style.css">
 </head>
 <body> 
 <!-- BANNIERE-->
-    <section id="editBanner" class="edit-banner">
-        <p id="openModal" class="icon-banner"><i class="fa-regular fa-pen-to-square" aria-hidden=""></i> 
-        Mode Edition</p>
-    </section>
+    <div id="editBanner" class="edit-banner">
+        <p id="openModal" class="icon-banner"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i> Mode Edition</p>
+    </div>
+
 <!-- HEADER NAV -->
     <header>
         <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
@@ -31,7 +31,7 @@
     </header>
 <!--INTRODUCTION-->
     <main>
-        <section id="introduction">
+        <div id="introduction">
             <figure>
                 <img src="./assets/images/sophie-bluel.png" alt="">
             </figure>
@@ -41,10 +41,10 @@
                 <p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
                 <p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
             </article>
-        </section>
+        </div>
 <!-- MODAL GALLERIE TRAVAUX ET SUPPRESSION  -->
         <div class="modal-overlay">
-            <section id="modal" class="modal" aria-modal="false">
+            <section id="modal" class="modal" aria-modal="false" role="dialog">
                 <div id="modal-content" class="modal-content">
                     <i class="fa-solid fa-xmark js-modal-close close-icon"></i>
                     <h3>Gallerie photo</h3>
@@ -56,9 +56,9 @@
             </section>
         </div>
 <!-- MODAL AJOUT IMAGES-->
-<section id="modalAdd" class="modal" aria-modal="false">
+<section id="modalAdd" class="modal" aria-modal="false" role="dialog">
     <div class="modalAdd-overlay"></div>
-    <div id="modal-content" class="modal-content">
+    <div id="modal-content2" class="modal-content">
         <i class="fa-solid fa-xmark js-modal-close close-icon" id="closeIconModal2"></i>
         <a href="#" id="backToGallery"><i class="fa fa-light fa-arrow-left" aria-hidden="true"></i></a>
         <h3 class="modalTitle">Ajout Photo</h3>
@@ -75,18 +75,14 @@
                 <p class="info">jpg, png : 4mo max</p>
             </form>
         </div>
-        <!----------------------->
         <h4>Titre</h4>
         <input type="text" name="photo-title" id="photo-title">
-
         <!-- PARTIE CATEGORIE POUR AJOUT DES TRAVAUX -->
         <h4>Catégorie</h4>
         <select id="category-select"></select><!-- Options générées dynamiquement avec JavaScript -->
         <button type="submit" id="valid">Valider</button>
     </div>
 </section>
-
-
 <!-- PROJET PAGE D'ACCUEIL ET FILTRES-->
     <section id="portfolio">
         <div class="modify">
