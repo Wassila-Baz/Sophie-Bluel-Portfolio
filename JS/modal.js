@@ -89,10 +89,7 @@ function getUserToken() {
    return localStorage.getItem('token');
 }
 
-//RÉCUPERATION DES TRAVAUX//
-function updateWorks() {
-    getWorks()
-}
+
 
 // FONCTION ASYNCHRONE /PROJETS MODAL
 async function generateProjectsInModal(apiUrl) {
@@ -176,20 +173,7 @@ function removeProjectFromDOM(projectId) {
     }
 }
 
-// Fonction event listener au click
-function deleteProjects() {
-        const deleteIcons = document.querySelectorAll(".delete-icon");
-        deleteIcons.forEach((deleteIcon) => {
-            deleteIcon.addEventListener("click", () => {
-                const itemId = deleteIcon.dataset.projectId; // Obtient l'ID du projet à partir de l'attribut data-project-id
-                if (confirm("Voulez-vous vraiment supprimer ce projet ?")) {
-                    deleteProject(itemId);
-                }
-            });
 
-        });
-    }
-deleteProjects();
                                 ///  AJOUTS D'IMAGE  ///
 
 // LISTE CATEGORIE
