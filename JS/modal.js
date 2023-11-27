@@ -4,7 +4,6 @@ const openModal = function () {
     const overlay = document.querySelector(".modal-overlay");
     modal.style.display = "block";
     overlay.style.display = "block";
-
 }
 
 const openModalButton = document.querySelector("#openModal");
@@ -69,8 +68,8 @@ document.querySelector("#modalAdd").addEventListener("click", (event) => {
     const modalContent = document.querySelector("#modal-content");
 
 // GESTION DE LA NAVIGATION ENTRE LES 2 MODALES
-    const backToGallery = document.getElementById("backToGallery");
-    backToGallery.addEventListener("click", () => {
+const backToGallery = document.getElementById("backToGallery");
+backToGallery.addEventListener("click", () => {
     const modalAdd = document.querySelector("#modalAdd");
     modalAdd.style.display = "none"; // Cache la deuxième modal
     openModal(); // Réaffiche la première modal
@@ -78,7 +77,7 @@ document.querySelector("#modalAdd").addEventListener("click", (event) => {
 });
 
 //PERMET D'OUVRIR LA MODAL D'AJOUT D'IMAGE VIA LE BOUTON AJOUTER UNE PHOTO
-    const btnAddPicture = document.getElementById("new-photo");
+const btnAddPicture = document.getElementById("new-photo");
     btnAddPicture.addEventListener("click", function() {
     openModalAdd();
 
@@ -101,14 +100,14 @@ async function generateProjectsInModal(apiUrl) {
         modalGallery.innerHTML = ""; // Retire les textes liés aux images
         data.forEach((project) => {// Génère les images des projets dans la modal
 
-        const imageContainer = document.createElement("div");
-        imageContainer.classList.add("image-container");
-        const imageElement = document.createElement("img");
-        imageElement.src = project.imageUrl;
+            const imageContainer = document.createElement("div");
+            imageContainer.classList.add("image-container");
+            const imageElement = document.createElement("img");
+            imageElement.src = project.imageUrl;
 
-        const deleteIcon = document.createElement("i");
-        deleteIcon.classList.add("fa", "fa-light", "fa-trash-can", "delete-icon");
-        deleteIcon.id = `delete-icon-${project.id}`;
+            const deleteIcon = document.createElement("i");
+            deleteIcon.classList.add("fa", "fa-light", "fa-trash-can", "delete-icon");
+            deleteIcon.id = `delete-icon-${project.id}`;
 
         deleteIcon.addEventListener("click", () => {
             if (confirm("Voulez-vous vraiment supprimer ce projet ?")) {
@@ -116,20 +115,16 @@ async function generateProjectsInModal(apiUrl) {
                 modalGallery.removeChild(imageContainer);
             }
         });
-
-        imageContainer.appendChild(imageElement);
-        imageContainer.appendChild(deleteIcon);
-        modalGallery.appendChild(imageContainer);
+            imageContainer.appendChild(imageElement);
+            imageContainer.appendChild(deleteIcon);
+            modalGallery.appendChild(imageContainer);
     });
     } catch (error) {
         console.error("Erreur lors de la récupération des projets :", error);
     }
 }
-// Appel de la fonction avec l'URL de l'API des travaux
+
 generateProjectsInModal(workApi);
-
-
-
 
 // Fonction pour supprimer un projet du DOM et du serveur en utilisant l'API 
 async function deleteProject(itemId) {
@@ -138,16 +133,13 @@ async function deleteProject(itemId) {
         console.error("Token d'utilisateur introuvable");
         return;
     }
-
     try {
         const response = await fetch(`http://localhost:5678/api/works/${itemId}`, {
             method: "DELETE",
             headers: {
                 "Authorization": `Bearer ${getUserToken()}`,
-
             },
         });
-
         if (response.status === 204) {
             console.log("Succès : Le projet a été supprimé.");
             removeProjectFromDOM(itemId);
