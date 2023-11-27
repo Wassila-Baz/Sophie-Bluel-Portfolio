@@ -3,7 +3,7 @@ const workApi = "http://localhost:5678/api/works";
 const galleryContainer = document.querySelector(".gallery");// Sélection de l'élément HTML avec la classe "gallery" pour y afficher les travaux
 
 // Fonction asynchrone pour récupérer les travaux
-async function getWorks() {
+async function getWorks(galleryContainer) {
     
     fetch(workApi)// Effectue une requête pour obtenir des données depuis l'API des travaux
         .then((response) => response.json()) // Transforme la réponse en format JSON
