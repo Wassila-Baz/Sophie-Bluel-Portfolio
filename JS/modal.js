@@ -241,7 +241,6 @@ async function addNewImage() {
                 console.log("Le travail a été ajouté avec succès.");
                 // Efface le contenu actuel de la galerie avant d'ajouter les nouveaux projets
                 galleryContainer.innerHTML = "";
-                
                 generateProjectsInModal(workApi); // permet d'afficher les projet sans rafraichir la page (modal)
                 getWorks();// permet d'afficher les projet sans rafraichir la page (page d'accueil)
             }
