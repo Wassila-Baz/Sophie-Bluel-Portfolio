@@ -11,12 +11,12 @@ async function getWorks() {
             // Une fois les données JSON obtenues
             // Itère sur chaque travail dans les données
             works.forEach((work) => {
-                // Ajoute une figure HTML à galleryContainer pour chaque travail
+                // Pour chaque travail, le code crée une structure HTML
                 galleryContainer.innerHTML += `
                 <figure data-category="${work.category.id}" data-set-id="${work.id}">
-                <img src="${work.imageUrl}" alt="${work.title}">
-                <figcaption>${work.title}</figcaption>
-            </figure>`;
+                    <img src="${work.imageUrl}" alt="${work.title}">
+                    <figcaption>${work.title}</figcaption>
+                </figure>`;
             });
         })
         .catch((error) => {

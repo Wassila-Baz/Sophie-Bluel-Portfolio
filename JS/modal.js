@@ -63,10 +63,6 @@ document.querySelector("#modalAdd").addEventListener("click", (event) => {
     }
 });
 
-// RÉCUPERATION DES TRAVAUX POUR LA MODAL
-    const originalGallery = document.querySelector(".gallery");
-    const modalContent = document.querySelector("#modal-content");
-
 // GESTION DE LA NAVIGATION ENTRE LES 2 MODALES
 const backToGallery = document.getElementById("backToGallery");
 backToGallery.addEventListener("click", () => {
