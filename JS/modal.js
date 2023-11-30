@@ -90,7 +90,7 @@ function getUserToken() {
 async function generateProjectsInModal(apiUrl) {
     try {
         const response = await fetch(apiUrl);
-        const data = await response.json();
+        const data = await response.json(); 
         const modalGallery = document.getElementById("modal-gallery");
 
         modalGallery.innerHTML = ""; // Retire les textes liés aux images
@@ -119,8 +119,8 @@ async function generateProjectsInModal(apiUrl) {
         console.error("Erreur lors de la récupération des projets :", error);
     }
 }
-
 generateProjectsInModal(workApi);
+
 
 // Fonction pour supprimer un projet du DOM et du serveur en utilisant l'API 
 async function deleteProject(itemId) {
@@ -197,7 +197,7 @@ async function addNewImage() {
         // Récupére les valeurs des champs du formulaire
         const title = document.getElementById("photo-title").value;
         const categoryId = document.getElementById("category-select").value;
-        const imageInput = document.getElementById("add-photo-input");
+        const imageInput = document.getElementById("add-photo-input"); //image
 
         //validation des champs du formulaire
         if (!title || !categoryId || !imageInput.files[0]) {

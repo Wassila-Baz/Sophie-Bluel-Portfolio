@@ -113,6 +113,9 @@ function showBannerIfValidToken() {
     const banner = document.getElementById("editBanner");
     const iconModify = document.querySelector(".icon-modify.admin-only");
 
+    const loginLink = document.getElementById('login-link');
+    const logoutLink = document.getElementById('logout-link');      
+
     // Récupère le token utilisateur depuis le stockage local
     const userToken = localStorage.getItem('token');
 
@@ -123,6 +126,10 @@ function showBannerIfValidToken() {
         // Affiche la bannière et d'autres éléments associés à l'administrateur
         banner.style.display = "block";
         iconModify.style.display = "block";
+
+        loginLink.style.display = 'none';
+        logoutLink.style.display = 'block';
+
     } else {
         // Cache la bannière et d'autres éléments associés à l'administrateur
         banner.style.display = "none";
@@ -130,7 +137,15 @@ function showBannerIfValidToken() {
     }
 }
 
-// Appelle la fonction lors du chargement du DOM
-document.addEventListener("DOMContentLoaded", showBannerIfValidToken);
-
+document.addEventListener("DOMContentLoaded", function () {
+    showBannerIfValidToken();
+    const logoutLink = document.getElementById('logout-link');
+    if(logoutLink) {
+      logoutLink.addEventListener('click', function (event) {
+        // Supprime le token d'authentification stocké localement
+        localStorage.removeItem('token');
+        window.location.href = '/index.html'; 
+      });
+    }
+  });
   
